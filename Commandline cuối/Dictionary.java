@@ -12,15 +12,15 @@ public class Dictionary {
 		DictionaryCommandLine dic = new DictionaryCommandLine();
 		DictionaryManagement d = new DictionaryManagement();
 		d.insertFromFile();
-		
-		//Scanner n = new Scanner(System.in);
-		System.out.println("Nhap du lieu nhap so 1");
-		System.out.println("Tra tu nhap so 2");
-		System.out.println("Xoa tu nhap so 3");
-		System.out.println("Sua tu nhap so 4");
-		System.out.println("Them tu nhap so 5");
-		System.out.println("Goi y tu nhap so 6");
-		System.out.println("Luu va thoat chuong trinh nhap so 7");
+		System.out.println("***************************************");
+		System.out.println("* Nhap du lieu nhap so 1              *");
+		System.out.println("* Tra tu nhap so 2                    *");
+		System.out.println("* Xoa tu nhap so 3                    *");
+		System.out.println("* Sua tu nhap so 4                    *");
+		System.out.println("* Them tu nhap so 5                   *");
+		System.out.println("* Goi y tu nhap so 6                  *");
+		System.out.println("* Luu va thoat chuong trinh nhap so 7 *");
+		System.out.println("***************************************");
 		boolean check = true;
 		while(check) {
 			System.out.print("Moi nhap so: ");
