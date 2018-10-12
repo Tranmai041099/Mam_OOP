@@ -53,16 +53,10 @@ public class Dictionary {
 			case 7: {
 				check = false;
 				d.dictionaryExpertToFile();
+				System.out.println("Da luu thay doi. Ket thuc ");
 				break;
 			}
-			//default: {
-				//System.out.print("Moi nhap lai: ");
-				//break;
-			//}
-			}
 		}
-		//n.close();
-		 
 	}
 
 }
