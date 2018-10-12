@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 
 public class DictionaryManagement {
-	
+	private static String FILENAME = "a.txt";
 
 	public void insertFromCommandline() {
 		int n;
@@ -32,9 +32,11 @@ public class DictionaryManagement {
 	}
 	
 	public void  insertFromFile() { // ham doc file
+		File f = new File(FILENAME);
+		FILENAME = f.getAbsolutePath();
 		BufferedReader br = null;
 		try {
-			File file = new File("C:/Users/user/Documents/OOP/dictionary/a.txt");
+			File file = new File("FILENAME");
 			
 			br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
 			 
@@ -85,7 +87,7 @@ public class DictionaryManagement {
 	
 	
 	public void dictionaryExpertToFile() throws IOException { // ham ghi du lieu tu mang vao file
-		File file = new File("C:/Users/user/Documents/OOP/dictionary/a.txt");
+		File file = new File(FILENAME);
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)));
 		for (Word word : DictionaryArrayList.words) {
 			bw.write(word.getTarget()+ "\t");
