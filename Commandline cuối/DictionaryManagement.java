@@ -17,9 +17,9 @@ public class DictionaryManagement {
 
 	public void insertFromCommandline() {
 		int n;
-	    System.out.print("So tu can them: ");
-	    n = new Scanner(System.in).nextInt();
-	    for (int i = 1; i <= n; i++) {
+	    	System.out.print("So tu can them: ");
+	    	n = new Scanner(System.in).nextInt();
+	    	for (int i = 1; i <= n; i++) {
 	        String target, explain;
 	        System.out.print("Nhap tu thu " + i + ": ");
 	        target = new Scanner(System.in).nextLine();
@@ -77,11 +77,10 @@ public class DictionaryManagement {
 			System.out.print("Nhap nghia can sua: ");
 			String meaning = new Scanner(System.in).nextLine();
 			if(s.equals(word.getTarget())) {
-        		word.setMeaning(meaning);
-        		break;
-        	}
+        			word.setMeaning(meaning);
+        			break;
+        		}
 		}
-        System.out.println("Da sua tu");
 	}
 	
 	
@@ -100,13 +99,12 @@ public class DictionaryManagement {
 		String searchword = new Scanner(System.in).nextLine();
 		int i = 0;
 		for (Word word : DictionaryArrayList.words) {
-        	if(searchword.equals(word.getTarget())) {
-        		DictionaryArrayList.words.remove(i);
-        		break;
-        	}
-        	i++;
+        		if(searchword.equals(word.getTarget())) {
+        			DictionaryArrayList.words.remove(i);
+        			break;
+        		}
+        		i++;
 		}
-		System.out.println("Da xoa");
 	}
 	
 	public void dictionaryAddword() throws IOException { // ham them tu
@@ -115,8 +113,7 @@ public class DictionaryManagement {
 		System.out.print("Nhap nghia: ");
 		String explain = new Scanner(System.in).nextLine();
 		Word wordtemp = new Word(target, explain);
-        DictionaryArrayList.words.add(wordtemp);
-        System.out.println("Da them tu");
+        	DictionaryArrayList.words.add(wordtemp);
 	}
 	
 }
