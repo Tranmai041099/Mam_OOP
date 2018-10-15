@@ -7,11 +7,10 @@ public class DictionaryCommandLine {
 	
 	public void showAllWords()
     {
-        String format = "%-6d |%-25s |%s \n";
-		System.out.printf("No    English %16s  Vietnamese \n", " ");
+        String format = "%-6d |%-40s |%s \n";
+		System.out.printf("No    English %31s  Vietnamese \n", " ");
         int wordnum1 = 0;
-        for (Word word : DictionaryArrayList.words)
-        {
+        for (Word word : DictionaryArrayList.words)  {
         	wordnum1++;
         	System.out.format(format, wordnum1, word.getTarget(), word.getMeaning());
         }
@@ -28,12 +27,17 @@ public class DictionaryCommandLine {
 		d.dictionaryLookup();
 	}
 	
+	@SuppressWarnings("resource")
 	public void dictionarySearcher() { // ham goi y tu;
+		String format = "%-6d |%-40s |%s \n";
+		int i = 0;
 		System.out.print("Moi nhap tu : ");
 		String searchword = new Scanner(System.in).nextLine();
 		for (Word word : DictionaryArrayList.words) {
-			if(word.getTarget().startsWith(searchword))
-				System.out.println(word.getTarget());
+			if(word.getTarget().startsWith(searchword)) {
+				i++;
+				System.out.format(format, i, word.getTarget(), word.getMeaning());
+			}
 		}
 	}
 }
