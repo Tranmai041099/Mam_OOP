@@ -1,7 +1,8 @@
-package DictionaryMana;
+package DictionaryGraphic;
 
 import java.util.ArrayList;
 
 public class DictionaryArray {
-	public ArrayList<Word> arr = new ArrayList<Word>();
+	public static ArrayList<Word1> words = new ArrayList <Word1>();
+	
 }
