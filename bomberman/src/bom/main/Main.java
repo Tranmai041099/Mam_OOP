@@ -10,7 +10,6 @@ public class Main {
 		GUI gui= new GUI();
 		gui.setVisible(true);
 		Img i = new Img();
-		System.out.println(Img.arrPlayerImg.size());
 	}
 
 }

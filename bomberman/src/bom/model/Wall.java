@@ -3,19 +3,29 @@ package bom.model;
 import java.awt.Graphics2D;
 import java.awt.Image;
 
+import bom.map.Value;
+
 public class Wall {
 	
 	private int x;
 	private int y;
 	private Image img;
 	private int type;
+
 	
-	public Wall(int x, int y, Image img) {
+	public Wall(int x, int y, Image img, int type) {
 		this.x = x;
 		this.y = y;
 		this.img = img;
+		this.type = type;
 	}
 	
+	public int getXtam() {
+		return x*Value.SIZE + 25;
+	}
+	public int getYtam() {
+		return y*Value.SIZE + 25;
+	}
 	public Image getImg() {
 		return img;
 	}
@@ -49,6 +59,6 @@ public class Wall {
 	}
 	
 	public void drawUnit(Graphics2D g) {
-		g.drawImage(img, x, y, 30, 30, null);
+		g.drawImage(img, x*Value.SIZE, y*Value.SIZE,null);
 	}
 }

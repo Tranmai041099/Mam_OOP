@@ -1,16 +1,16 @@
 package bom.model;
 
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.event.KeyEvent;
 
 import bom.Image.Img;
+import bom.map.Value;
 
 
 public class Bomber {
 	
-	private int x, y, speed, oirent, jump = 10, typeRun, vt = 0;
+	private int x, y, jump = 10,  countBomb = 3, lengBomb = 2, vt = 0;
+	private int speed, orient, typeRun;
 	private boolean isRun = false, isDie = false;
 	private int start = 0, stept = 0;
 	
@@ -25,86 +25,181 @@ public class Bomber {
 	public int getSpeed() {
 		return speed;
 	}
-	public int getOirent() {
-		return oirent;
+	public int getOrient() {
+		return orient;
 	}
 	
-	public Bomber(int x, int y, int speed, int oirent) {
+	public int getJump() {
+		return jump;
+	}
+	
+	public boolean isRun() {
+		return isRun;
+	}
+	public void setRun(boolean isRun) {
+		this.isRun = isRun;
+	}
+	
+	public void setCountBomb(int countBomb) {
+		if(countBomb>5){
+			this.countBomb = 5;
+		} else {
+			this.countBomb = countBomb;
+		}
+	}
+	public void setLengBomb(int lengBomb) {
+		if(lengBomb==5){
+			this.lengBomb = 5;
+		} else {
+			this.lengBomb = lengBomb;
+		}
+	}
+	public int getCountBomb() {
+		return countBomb;
+	}
+	public int getLengBomb() {
+		return lengBomb;
+	}
+	
+	public int getStart() {
+		return start;
+	}
+	
+	public Bomber(int x, int y, int speed, int orient) {
 		this.x = x;
 		this.y = y;
 		this.speed = speed;
-		this.oirent = oirent;
-		img = Img.arrPlayerImg.get(oirent);
+		this.orient = orient;
+		img = Img.arrBomberImg.get(orient);
+
 	}
 	
-	public void drawPlayer(Graphics2D g2d) {
-		g2d.drawImage(img, x, y, 50, 50, null);
+	public void drawBomber(Graphics2D g2d) {
+		g2d.drawImage(img, x, y, null);
 	}
 	
-	public void setMove(int keyCode) {
+	public void setMove(int keyCode, int typeRun) {
+		if(typeRun == 0) {
+			jump = 0;
+		}
+		else
+			jump = 10;
 		if(!isDie) {
 			switch(keyCode) {
-			case KeyEvent.VK_UP:
+			case Value.UP:
 				start = 0;
 				break;
-			case KeyEvent.VK_DOWN:
+			case Value.DOWN:
 				start = 1;
 				break;
-			case KeyEvent.VK_RIGHT:
+			case Value.RIGHT:
 				start = 2;
 				break;
-			case KeyEvent.VK_LEFT:
+			case Value.LEFT:
 				start = 3;
 				break;
 			}
 		}
+		this.orient = keyCode;
 	}
-	public void movePlayer(int keyCode, long time) {
+	
+	public void checkBomb(MrBomb bombMr) {
+		int x1 = x+50;
+		int y1 = y+85;
+		for(Bomb bomb : bombMr.getArrBomb()) {
+			if(Math.abs(x1 - bomb.getX()) <= 65 && Math.abs(y1 - bomb.getY()) <= 25){
+				this.typeRun = 0;
+			}
+		}
+	}
+	
+	public void moveBomber(long time, MrBomb bombMr) {
 		
-		if(time % speed != 0){
+		checkBomb(bombMr);
+		
+		if(isDie){
+			if(vt == 10){
+				img = null;
+				return;
+			}
+			if(time%120 == 0)
+				playerDie();
 			return;
 		}
 		
-		switch(keyCode) {
-		case KeyEvent.VK_UP: {
+		if(time % speed != 0)
+			return;
+		
+		if(!isRun){
+			return;
+		}
+		
+		switch(orient) {
+		case Value.UP: {
+			stept++;
+			stept = stept%5;
+			stept += start*5;
+			img = Img.arrBomberImg.get(stept);
 			y -= jump;
-			stept++;
-			stept = stept%5;
-			stept += start*5;
-			System.out.println(start);
-			img = Img.arrPlayerImg.get(stept);
+			isRun = false;
 			break;
 
 		}
-		case KeyEvent.VK_DOWN: {
+		case Value.DOWN: {
+			stept++;
+			stept = stept%5;
+			stept += start*5;
+			img = Img.arrBomberImg.get(stept);
 			y += jump;
-			stept++;
-			stept = stept%5;
-			stept += start*5;
-			System.out.println(start);
-			img = Img.arrPlayerImg.get(stept);
+			isRun = false;
 			break;
 
 		}
-		case KeyEvent.VK_RIGHT: {
-			x += jump;
+		case Value.RIGHT: {
 			stept++;
 			stept = stept%5;
 			stept += start*5;
-			System.out.println(start);
-			img = Img.arrPlayerImg.get(stept);
+			img = Img.arrBomberImg.get(stept);
+			x += jump;
+			isRun = false;
 			break;
 		}
-		case KeyEvent.VK_LEFT: {
-			x -= jump;
+		case Value.LEFT: {
 			stept++;
 			stept = stept%5;
 			stept += start*5;
-			System.out.println(start);
-			img = Img.arrPlayerImg.get(stept);
+			img = Img.arrBomberImg.get(stept);
+			x -= jump;
+			isRun = false;
 			break;
 
 		}
 		}
 	}
+	
+	public boolean isDie() {
+		if(vt == 10)
+			return isDie;
+		return false;
+	}
+	public void setDie(boolean isDie) {
+		this.isDie = isDie;
+	}
+	public void playerDie() {
+		img = Img.arrBomberImg.get(vt+20);
+		vt++;
+	}
+	
+	public void checkDie(MrFlame flameMr) {
+		for(Flame flame : flameMr.getArrFlame()) {
+			if((Math.abs((x+50)-flame.getXtam()) <= 25 && Math.abs(y+85-flame.getYtam())<=35)) {
+				this.setDie(true);
+				
+				return;
+			}
+		}
+		
+	}
+	
+	
 }
